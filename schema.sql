@@ -1,0 +1,140 @@
+PRAGMA foreign_keys = ON;
+
+-- Clear existing tables if they exist
+DROP TABLE IF EXISTS MONTHLY_PORTFOLIO_PERFORMANCE;
+DROP TABLE IF EXISTS INVESTMENT_TRANSACTION;
+DROP TABLE IF EXISTS FUND_IN_PORTFOLIO;
+DROP TABLE IF EXISTS BOND_IN_PORTFOLIO;
+DROP TABLE IF EXISTS STOCK_IN_PORTFOLIO;
+DROP TABLE IF EXISTS FUND;
+DROP TABLE IF EXISTS BOND;
+DROP TABLE IF EXISTS STOCK;
+DROP TABLE IF EXISTS PORTFOLIO;
+DROP TABLE IF EXISTS FINANCIAL_GOAL;
+DROP TABLE IF EXISTS INVESTOR;
+
+-- INVESTOR table
+CREATE TABLE IF NOT EXISTS INVESTOR (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Gender TEXT CHECK(Gender IN ('Male', 'Female', 'Other')),
+    DoB DATE,
+    Phone TEXT,
+    Annual_Income REAL,
+    Risk_Level TEXT CHECK(Risk_Level IN ('Conservative', 'Moderate', 'Aggressive')),
+    Q1_answer INTEGER,
+    Q2_answer INTEGER,
+    Q3_answer INTEGER,
+    Q4_answer INTEGER,
+    Q5_answer INTEGER,
+    Company TEXT
+);
+
+-- FINANCIAL_GOAL table
+CREATE TABLE IF NOT EXISTS FINANCIAL_GOAL (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Investor_ID INTEGER,
+    Goal TEXT,
+    Amount REAL,
+    Timeline INTEGER,
+    Creation_Date DATE,
+    Priority INTEGER,
+    FOREIGN KEY (Investor_ID) REFERENCES INVESTOR(ID) ON DELETE CASCADE
+);
+
+-- PORTFOLIO table
+CREATE TABLE IF NOT EXISTS PORTFOLIO (
+    PID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Investor_ID INTEGER,
+    Inception_Date DATE,
+    Annualized_Return_2023 REAL,
+    Annualized_Return_2024 REAL,
+    FOREIGN KEY (Investor_ID) REFERENCES INVESTOR(ID) ON DELETE CASCADE
+);
+
+-- STOCK table
+CREATE TABLE IF NOT EXISTS STOCK (
+    ID TEXT PRIMARY KEY,
+    Company TEXT NOT NULL,
+    P_E_ratio REAL,
+    EPS REAL,
+    Dividend_Yield REAL,
+    Market_Value REAL
+);
+
+-- BOND table
+CREATE TABLE IF NOT EXISTS BOND (
+    ID TEXT PRIMARY KEY,
+    Interest_Rate REAL,
+    Maturity_Date DATE,
+    Price REAL
+);
+
+-- FUND table
+CREATE TABLE IF NOT EXISTS FUND (
+    ID TEXT PRIMARY KEY,
+    Name TEXT NOT NULL,
+    Expense_Ratio REAL,
+    Annualized_Return REAL
+);
+
+-- STOCK_IN_PORTFOLIO (junction table)
+CREATE TABLE IF NOT EXISTS STOCK_IN_PORTFOLIO (
+    Portfolio_ID INTEGER,
+    Stock_ID TEXT,
+    Invested_Value REAL,
+    Unrealized_Gain_Loss REAL,
+    Date_Added DATE,
+    Unrealized_Gain_Loss_2024 REAL,
+    PRIMARY KEY (Portfolio_ID, Stock_ID),
+    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE,
+    FOREIGN KEY (Stock_ID) REFERENCES STOCK(ID) ON DELETE CASCADE
+);
+
+-- BOND_IN_PORTFOLIO (junction table)
+CREATE TABLE IF NOT EXISTS BOND_IN_PORTFOLIO (
+    Portfolio_ID INTEGER,
+    Bond_ID TEXT,
+    Invested_Value REAL,
+    Unrealized_Gain_Loss REAL,
+    Date_Added DATE,
+    Unrealized_Gain_Loss_2024 REAL,
+    PRIMARY KEY (Portfolio_ID, Bond_ID),
+    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE,
+    FOREIGN KEY (Bond_ID) REFERENCES BOND(ID) ON DELETE CASCADE
+);
+
+-- FUND_IN_PORTFOLIO (junction table)
+CREATE TABLE IF NOT EXISTS FUND_IN_PORTFOLIO (
+    Portfolio_ID INTEGER,
+    Fund_ID TEXT,
+    Invested_Value REAL,
+    Unrealized_Gain_Loss REAL,
+    Date_Added DATE,
+    Unrealized_Gain_Loss_2024 REAL,
+    PRIMARY KEY (Portfolio_ID, Fund_ID),
+    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE,
+    FOREIGN KEY (Fund_ID) REFERENCES FUND(ID) ON DELETE CASCADE
+);
+
+-- INVESTMENT_TRANSACTION table
+CREATE TABLE IF NOT EXISTS INVESTMENT_TRANSACTION (
+    ID TEXT PRIMARY KEY,
+    Portfolio_ID INTEGER,
+    Type TEXT CHECK(Type IN ('Buy', 'Sell', 'Dividend', 'Interest')),
+    Amount REAL,
+    Fee REAL,
+    Date DATE,
+    Post_trade_CO REAL,
+    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
+);
+
+-- MONTHLY_PORTFOLIO_PERFORMANCE table
+CREATE TABLE IF NOT EXISTS MONTHLY_PORTFOLIO_PERFORMANCE (
+    Portfolio_ID INTEGER,
+    Month INTEGER CHECK(Month BETWEEN 1 AND 12),
+    Year INTEGER,
+    Avg_Unrealized_Gain_Loss REAL,
+    PRIMARY KEY (Portfolio_ID, Month, Year),
+    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
+);
