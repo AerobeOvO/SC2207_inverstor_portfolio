@@ -1,4 +1,4 @@
--- Clear all tables (in proper order to maintain referential integrity)
+-- Clear tables while maintaining referential integrity
 DELETE FROM FUND_IN_PORTFOLIO;
 DELETE FROM BOND_IN_PORTFOLIO;
 DELETE FROM STOCK_IN_PORTFOLIO;
@@ -15,85 +15,59 @@ DELETE FROM FINANCIAL_GOAL;
 DELETE FROM RISK_TOLERANCE;
 DELETE FROM INVESTOR;
 
--- Insert 20 Singaporean Investors (10 aged 20-29, 10 aged 30-40)
-INSERT INTO INVESTOR (Phone, Name, Gender, DateOfBirth, AnnualIncome, Company, Amount, Timeline) VALUES
+-- Insert 20 Investors (Singapore-based)
+INSERT INTO INVESTOR (Phone, Name, Gender, DateOfBirth, AnnualIncome, Company) VALUES
 -- Young Investors (20-29)
-('+6581001234', 'Tan Wei Ming', 'Male', '1998-05-12', 45000, 'Grab', 50000, 10),
-('+6582002345', 'Nurul Aisyah', 'Female', '1999-11-03', 38000, 'Shopee', 30000, 15),
-('+6583003456', 'Rajesh Kumar', 'Male', '1997-02-28', 55000, 'DBS Bank', 75000, 8),
-('+6584004567', 'Lim Jia Hui', 'Female', '1996-08-19', 60000, 'TikTok Singapore', 100000, 12),
-('+6585005678', 'Wong Fei Hong', 'Male', '1995-07-25', 48000, 'FoodPanda', 40000, 7),
-('+6586006789', 'Siti Binte Omar', 'Female', '1994-09-14', 65000, 'Singapore Airlines', 120000, 15),
-('+6587007890', 'Jason Tan', 'Male', '1999-12-05', 42000, 'Lazada', 35000, 10),
-('+6588008901', 'Priya Govind', 'Female', '1996-04-22', 58000, 'Standard Chartered', 90000, 12),
-('+6589009012', 'Mohammad Ali', 'Male', '1997-10-15', 52000, 'GovTech', 60000, 9),
-('+6590000123', 'Amanda Ng', 'Female', '1995-03-08', 70000, 'Temasek Holdings', 150000, 20),
-('+6581555123', 'Sim Yi Xuan', 'Female', '1992-06-15', 72000, 'Google Singapore', 90000, 10),
-('+6581666234', 'Daniel Chua', 'Male', '1990-03-11', 85000, 'NUS', 110000, 12),
+('+6581001234', 'Tan Wei Ming', 'Male', '1998-05-12', 45000, 'Grab'),
+('+6582002345', 'Nurul Aisyah', 'Female', '1999-11-03', 38000, 'Shopee'),
+('+6583003456', 'Rajesh Kumar', 'Male', '1997-02-28', 55000, 'DBS Bank'),
+('+6584004567', 'Lim Jia Hui', 'Female', '1996-08-19', 60000, 'TikTok Singapore'),
+('+6585005678', 'Wong Fei Hong', 'Male', '1995-07-25', 48000, 'FoodPanda'),
+('+6586006789', 'Siti Binte Omar', 'Female', '1994-09-14', 65000, 'Singapore Airlines'),
+('+6587007890', 'Jason Tan', 'Male', '1999-12-05', 42000, 'Lazada'),
+('+6588008901', 'Priya Govind', 'Female', '1996-04-22', 58000, 'Standard Chartered'),
+('+6589009012', 'Mohammad Ali', 'Male', '1997-10-15', 52000, 'GovTech'),
+('+6590000123', 'Amanda Ng', 'Female', '1995-03-08', 70000, 'Temasek Holdings'),
 
 -- Established Investors (30-40)
-('+6591001234', 'Lee Chong Wei', 'Male', '1988-06-18', 120000, 'OCBC Bank', 300000, 15),
-('+6592002345', 'Sarah Lim', 'Female', '1987-09-27', 110000, 'Singtel', 250000, 12),
-('+6593003456', 'David Wong', 'Male', '1985-11-30', 150000, 'Micron Technology', 400000, 20),
-('+6594004567', 'Fatimah Binte Yusof', 'Female', '1989-04-05', 95000, 'ST Engineering', 180000, 10),
-('+6595005678', 'Richard Goh', 'Male', '1983-12-12', 180000, 'Sea Limited', 500000, 25),
-('+6596006789', 'Jennifer Ho', 'Female', '1986-07-22', 130000, 'Razer', 220000, 15),
-('+6597007890', 'Arjun Patel', 'Male', '1984-02-14', 160000, 'BioNTech Singapore', 350000, 18),
-('+6598008901', 'Grace Chan', 'Female', '1982-10-08', 140000, 'SAP Asia', 280000, 12),
-('+6599009012', 'Benjamin Koh', 'Male', '1987-05-19', 170000, 'Shell Singapore', 450000, 22),
-('+6510000123', 'Nur Syafiqah', 'Female', '1985-08-31', 125000, 'Procter & Gamble', 320000, 15);
+('+6591001234', 'Lee Chong Wei', 'Male', '1988-06-18', 120000, 'OCBC Bank'),
+('+6592002345', 'Sarah Lim', 'Female', '1987-09-27', 110000, 'Singtel'),
+('+6593003456', 'David Wong', 'Male', '1985-11-30', 150000, 'Micron Technology'),
+('+6594004567', 'Fatimah Binte Yusof', 'Female', '1989-04-05', 95000, 'ST Engineering'),
+('+6595005678', 'Richard Goh', 'Male', '1983-12-12', 180000, 'Sea Limited'),
+('+6596006789', 'Jennifer Ho', 'Female', '1986-07-22', 130000, 'Razer'),
+('+6597007890', 'Arjun Patel', 'Male', '1984-02-14', 160000, 'BioNTech Singapore'),
+('+6598008901', 'Grace Chan', 'Female', '1982-10-08', 140000, 'SAP Asia'),
+('+6599009012', 'Benjamin Koh', 'Male', '1987-05-19', 170000, 'Shell Singapore'),
+('+6510000123', 'Nur Syafiqah', 'Female', '1985-08-31', 125000, 'Procter & Gamble');
 
--- Insert Risk Tolerance Profiles
-INSERT INTO RISK_TOLERANCE (Investor_PhoneNumber, RiskLevel, Answers) VALUES
--- Young investors (higher risk tolerance)
-('+6581001234', 'Aggressive', '5,4,5,4,5'),
-('+6582002345', 'Moderate', '3,3,4,3,4'),
-('+6583003456', 'Aggressive', '5,5,4,5,4'),
-('+6584004567', 'Aggressive', '4,5,5,4,5'),
-('+6585005678', 'Moderate', '3,4,3,4,3'),
-('+6586006789', 'Conservative', '2,3,2,3,2'),
-('+6587007890', 'Aggressive', '5,4,5,4,5'),
-('+6588008901', 'Moderate', '3,4,4,3,4'),
-('+6589009012', 'Aggressive', '4,5,4,5,4'),
-('+6590000123', 'Moderate', '3,4,3,4,3'),
-
--- Established investors (more conservative)
-('+6591001234', 'Moderate', '3,3,3,4,3'),
-('+6592002345', 'Conservative', '2,2,3,2,3'),
-('+6593003456', 'Moderate', '3,4,3,4,3'),
-('+6594004567', 'Conservative', '2,3,2,3,2'),
-('+6595005678', 'Aggressive', '4,5,4,5,4'),
-('+6596006789', 'Moderate', '3,3,4,3,4'),
-('+6597007890', 'Moderate', '3,4,3,4,3'),
-('+6598008901', 'Conservative', '2,3,2,3,2'),
-('+6599009012', 'Moderate', '3,4,3,4,3'),
-('+6510000123', 'Conservative', '2,2,3,2,3');
-
--- Insert Financial Goals (Singapore context)
-INSERT INTO FINANCIAL_GOAL (Investor_Phone, Goal, Amount, Timeline) VALUES
+-- Insert Financial Goals
+INSERT INTO FINANCIAL_GOAL (Investor_Phone, Goal, Amount, Timeline, YearCreated) VALUES
 -- Young investors
-('+6581001234', 'BTO Flat Downpayment', 100000, 5),
-('+6582002345', 'Further Education', 50000, 3),
-('+6583003456', 'Start Business', 200000, 8),
-('+6584004567', 'Investment Property', 500000, 12),
-('+6585005678', 'Wedding Fund', 40000, 2),
-('+6586006789', 'Retirement', 1000000, 25),
-('+6587007890', 'Travel Fund', 30000, 3),
-('+6588008901', 'Parents Retirement', 200000, 10),
-('+6589009012', 'Car Purchase', 80000, 4),
-('+6590000123', 'Wealth Accumulation', 500000, 15),
+('+6581001234', 'BTO Flat Downpayment', 100000, 5, 2023),
+('+6582002345', 'Further Education', 50000, 3, 2022),
+('+6583003456', 'Start Business', 200000, 8, 2024),
+('+6584004567', 'Investment Property', 500000, 12, 2025),
+('+6585005678', 'Wedding Fund', 40000, 2, 2023),
+('+6586006789', 'Retirement', 1000000, 25, 2022),
+('+6587007890', 'Travel Fund', 30000, 3, 2022),
+('+6588008901', 'Parents Retirement', 200000, 10, 2025),
+('+6589009012', 'Car Purchase', 80000, 4, 2024),
+('+6590000123', 'Wealth Accumulation', 500000, 15, 2025),
 
 -- Established investors
-('+6591001234', 'Children Education', 250000, 8),
-('+6592002345', 'Retirement', 1500000, 15),
-('+6593003456', 'Second Property', 800000, 10),
-('+6594004567', 'Family Vacation Home', 350000, 7),
-('+6595005678', 'Early Retirement', 2000000, 12),
-('+6596006789', 'Wealth Preservation', 1000000, 20),
-('+6597007890', 'Philanthropy Fund', 500000, 15),
-('+6598008901', 'Healthcare Fund', 300000, 10),
-('+6599009012', 'Legacy Planning', 1500000, 25),
-('+6510000123', 'Business Expansion', 500000, 8);
+('+6591001234', 'Children Education', 250000, 8, 2023),
+('+6592002345', 'Retirement', 1500000, 15, 2025),
+('+6593003456', 'Second Property', 800000, 10, 2024),
+('+6594004567', 'Family Vacation Home', 350000, 7, 2024),
+('+6595005678', 'Early Retirement', 2000000, 12, 2025),
+('+6596006789', 'Wealth Preservation', 1000000, 20, 2025),
+('+6597007890', 'Philanthropy Fund', 500000, 15, 2024),
+('+6598008901', 'Healthcare Fund', 300000, 10, 2025),
+('+6599009012', 'Legacy Planning', 1500000, 25, 2024),
+('+6510000123', 'Business Expansion', 500000, 8, 2025);
+
+
 
 -- Insert Portfolios with Singaporean characteristics
 INSERT INTO PORTFOLIO (PID, Investor_PhoneNumber, InvestedValueDate, UnrealizedGainLossDate, Fee, MarketValue, InceptionDate, AnnualizedReturn) VALUES

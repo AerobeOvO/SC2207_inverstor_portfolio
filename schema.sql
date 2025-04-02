@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS FINANCIAL_GOAL (
     Goal TEXT,
     Amount REAL,
     Timeline INTEGER,
+    YearCreated INTEGER,
     PRIMARY KEY (Investor_Phone, Goal),
     FOREIGN KEY (Investor_Phone) REFERENCES INVESTOR(Phone) ON DELETE CASCADE
 );
