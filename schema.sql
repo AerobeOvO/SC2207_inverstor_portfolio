@@ -1,140 +1,162 @@
 PRAGMA foreign_keys = ON;
 
 -- Clear existing tables if they exist
-DROP TABLE IF EXISTS MONTHLY_PORTFOLIO_PERFORMANCE;
-DROP TABLE IF EXISTS INVESTMENT_TRANSACTION;
 DROP TABLE IF EXISTS FUND_IN_PORTFOLIO;
 DROP TABLE IF EXISTS BOND_IN_PORTFOLIO;
 DROP TABLE IF EXISTS STOCK_IN_PORTFOLIO;
-DROP TABLE IF EXISTS FUND;
+DROP TABLE IF EXISTS INVESTMENT_TRANSACTION;
 DROP TABLE IF EXISTS BOND;
+DROP TABLE IF EXISTS FUND;
 DROP TABLE IF EXISTS STOCK;
+DROP TABLE IF EXISTS ASSETS;
+DROP TABLE IF EXISTS UnrealizedGainLoss;
+DROP TABLE IF EXISTS InvestedValue;
 DROP TABLE IF EXISTS PORTFOLIO;
 DROP TABLE IF EXISTS FINANCIAL_GOAL;
+DROP TABLE IF EXISTS RISK_TOLERANCE;
 DROP TABLE IF EXISTS INVESTOR;
 
 -- INVESTOR table
 CREATE TABLE IF NOT EXISTS INVESTOR (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Phone TEXT PRIMARY KEY,
     Name TEXT NOT NULL,
-    Gender TEXT CHECK(Gender IN ('Male', 'Female', 'Other')),
-    DoB DATE,
-    Phone TEXT,
-    Annual_Income REAL,
-    Risk_Level TEXT CHECK(Risk_Level IN ('Conservative', 'Moderate', 'Aggressive')),
-    Q1_answer INTEGER,
-    Q2_answer INTEGER,
-    Q3_answer INTEGER,
-    Q4_answer INTEGER,
-    Q5_answer INTEGER,
-    Company TEXT
+    Gender TEXT,
+    DateOfBirth DATE,
+    AnnualIncome REAL,
+    Company TEXT,
+    Amount REAL,
+    Timeline INTEGER
+);
+
+-- RISK_TOLERANCE table
+CREATE TABLE IF NOT EXISTS RISK_TOLERANCE (
+    Investor_PhoneNumber TEXT,
+    RiskLevel TEXT,
+    Answers TEXT,
+    PRIMARY KEY (Investor_PhoneNumber, RiskLevel),
+    FOREIGN KEY (Investor_PhoneNumber) REFERENCES INVESTOR(Phone) ON DELETE CASCADE
 );
 
 -- FINANCIAL_GOAL table
 CREATE TABLE IF NOT EXISTS FINANCIAL_GOAL (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Investor_ID INTEGER,
+    Investor_Phone TEXT,
     Goal TEXT,
     Amount REAL,
     Timeline INTEGER,
-    Creation_Date DATE,
-    Priority INTEGER,
-    FOREIGN KEY (Investor_ID) REFERENCES INVESTOR(ID) ON DELETE CASCADE
+    PRIMARY KEY (Investor_Phone, Goal),
+    FOREIGN KEY (Investor_Phone) REFERENCES INVESTOR(Phone) ON DELETE CASCADE
 );
 
--- PORTFOLIO table
+-- PORTFOLIO table 
 CREATE TABLE IF NOT EXISTS PORTFOLIO (
-    PID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Investor_ID INTEGER,
-    Inception_Date DATE,
-    Annualized_Return_2023 REAL,
-    Annualized_Return_2024 REAL,
-    FOREIGN KEY (Investor_ID) REFERENCES INVESTOR(ID) ON DELETE CASCADE
+    PID TEXT,
+    Investor_PhoneNumber TEXT,
+    InvestedValueDate DATE,
+    UnrealizedGainLossDate DATE,
+    Fee REAL,
+    MarketValue REAL,
+    InceptionDate DATE,
+    AnnualizedReturn REAL,
+    PRIMARY KEY (PID, Investor_PhoneNumber),
+    FOREIGN KEY (Investor_PhoneNumber) REFERENCES INVESTOR(Phone) ON DELETE CASCADE
+);
+
+-- InvestedValue table
+CREATE TABLE IF NOT EXISTS InvestedValue (
+    PID TEXT,
+    Investor_PhoneNumber TEXT,
+    DateOfInvestedValue DATE,
+    Amount REAL,
+    PRIMARY KEY (PID, Investor_PhoneNumber, DateOfInvestedValue),
+    FOREIGN KEY (PID, Investor_PhoneNumber) REFERENCES PORTFOLIO(PID, Investor_PhoneNumber) ON DELETE CASCADE
+);
+
+-- UnrealizedGainLoss table
+CREATE TABLE IF NOT EXISTS UnrealizedGainLoss (
+    PID TEXT,
+    Investor_PhoneNumber TEXT,
+    DateOfUnrealizedGainLoss DATE,
+    Amount REAL,
+    PRIMARY KEY (PID, Investor_PhoneNumber, DateOfUnrealizedGainLoss),
+    FOREIGN KEY (PID, Investor_PhoneNumber) REFERENCES PORTFOLIO(PID, Investor_PhoneNumber) ON DELETE CASCADE
+);
+
+-- ASSETS table
+CREATE TABLE IF NOT EXISTS ASSETS (
+    ASSETID TEXT PRIMARY KEY,
+    Name TEXT,
+    Price REAL
 );
 
 -- STOCK table
 CREATE TABLE IF NOT EXISTS STOCK (
-    ID TEXT PRIMARY KEY,
-    Company TEXT NOT NULL,
-    P_E_ratio REAL,
+    ASSETID TEXT PRIMARY KEY,
+    P_E_Ratio REAL,
     EPS REAL,
-    Dividend_Yield REAL,
-    Market_Value REAL
-);
-
--- BOND table
-CREATE TABLE IF NOT EXISTS BOND (
-    ID TEXT PRIMARY KEY,
-    Interest_Rate REAL,
-    Maturity_Date DATE,
-    Price REAL
+    EBITDA REAL,
+    FOREIGN KEY (ASSETID) REFERENCES ASSETS(ASSETID) ON DELETE CASCADE
 );
 
 -- FUND table
 CREATE TABLE IF NOT EXISTS FUND (
-    ID TEXT PRIMARY KEY,
-    Name TEXT NOT NULL,
-    Expense_Ratio REAL,
-    Annualized_Return REAL
+    ASSETID TEXT PRIMARY KEY,
+    ExpenseRatio REAL,
+    DividendYield REAL,
+    ID TEXT,
+    FOREIGN KEY (ASSETID) REFERENCES ASSETS(ASSETID) ON DELETE CASCADE
 );
 
--- STOCK_IN_PORTFOLIO (junction table)
-CREATE TABLE IF NOT EXISTS STOCK_IN_PORTFOLIO (
-    Portfolio_ID INTEGER,
-    Stock_ID TEXT,
-    Invested_Value REAL,
-    Unrealized_Gain_Loss REAL,
-    Date_Added DATE,
-    Unrealized_Gain_Loss_2024 REAL,
-    PRIMARY KEY (Portfolio_ID, Stock_ID),
-    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE,
-    FOREIGN KEY (Stock_ID) REFERENCES STOCK(ID) ON DELETE CASCADE
+-- BOND table
+CREATE TABLE IF NOT EXISTS BOND (
+    ASSETID TEXT PRIMARY KEY,
+    ExpenseRatio REAL,
+    DividendYield REAL,
+    FOREIGN KEY (ASSETID) REFERENCES ASSETS(ASSETID) ON DELETE CASCADE
 );
 
--- BOND_IN_PORTFOLIO (junction table)
-CREATE TABLE IF NOT EXISTS BOND_IN_PORTFOLIO (
-    Portfolio_ID INTEGER,
-    Bond_ID TEXT,
-    Invested_Value REAL,
-    Unrealized_Gain_Loss REAL,
-    Date_Added DATE,
-    Unrealized_Gain_Loss_2024 REAL,
-    PRIMARY KEY (Portfolio_ID, Bond_ID),
-    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE,
-    FOREIGN KEY (Bond_ID) REFERENCES BOND(ID) ON DELETE CASCADE
-);
-
--- FUND_IN_PORTFOLIO (junction table)
-CREATE TABLE IF NOT EXISTS FUND_IN_PORTFOLIO (
-    Portfolio_ID INTEGER,
-    Fund_ID TEXT,
-    Invested_Value REAL,
-    Unrealized_Gain_Loss REAL,
-    Date_Added DATE,
-    Unrealized_Gain_Loss_2024 REAL,
-    PRIMARY KEY (Portfolio_ID, Fund_ID),
-    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE,
-    FOREIGN KEY (Fund_ID) REFERENCES FUND(ID) ON DELETE CASCADE
-);
-
--- INVESTMENT_TRANSACTION table
+-- INVESTMENT_TRANSACTION table (renamed from TRANSACTION)
 CREATE TABLE IF NOT EXISTS INVESTMENT_TRANSACTION (
-    ID TEXT PRIMARY KEY,
-    Portfolio_ID INTEGER,
-    Type TEXT CHECK(Type IN ('Buy', 'Sell', 'Dividend', 'Interest')),
-    Amount REAL,
-    Fee REAL,
+    ID TEXT,
     Date DATE,
-    Post_trade_CO REAL,
-    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
+    PID TEXT,
+    Type TEXT,
+    Fee REAL,
+    PRIMARY KEY (ID, Date),
+    FOREIGN KEY (PID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
 );
 
--- MONTHLY_PORTFOLIO_PERFORMANCE table
-CREATE TABLE IF NOT EXISTS MONTHLY_PORTFOLIO_PERFORMANCE (
-    Portfolio_ID INTEGER,
-    Month INTEGER CHECK(Month BETWEEN 1 AND 12),
-    Year INTEGER,
-    Avg_Unrealized_Gain_Loss REAL,
-    PRIMARY KEY (Portfolio_ID, Month, Year),
-    FOREIGN KEY (Portfolio_ID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
+-- STOCK_IN_PORTFOLIO table
+CREATE TABLE IF NOT EXISTS STOCK_IN_PORTFOLIO (
+    StockID TEXT,
+    PID TEXT,
+    StartDate DATE,
+    AllocationRatio REAL,
+    PostTradeCO REAL,
+    PRIMARY KEY (StockID, PID),
+    FOREIGN KEY (StockID) REFERENCES STOCK(ASSETID) ON DELETE CASCADE,
+    FOREIGN KEY (PID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
+);
+
+-- BOND_IN_PORTFOLIO table
+CREATE TABLE IF NOT EXISTS BOND_IN_PORTFOLIO (
+    BondID TEXT,
+    PID TEXT,
+    StartDate DATE,
+    AllocationRatio REAL,
+    PostTradeCO REAL,
+    PRIMARY KEY (BondID, PID),
+    FOREIGN KEY (BondID) REFERENCES BOND(ASSETID) ON DELETE CASCADE,
+    FOREIGN KEY (PID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
+);
+
+-- FUND_IN_PORTFOLIO table
+CREATE TABLE IF NOT EXISTS FUND_IN_PORTFOLIO (
+    FundID TEXT,
+    PID TEXT,
+    StartDate DATE,
+    AllocationRatio REAL,
+    PostTradeCO REAL,
+    PRIMARY KEY (FundID, PID),
+    FOREIGN KEY (FundID) REFERENCES FUND(ASSETID) ON DELETE CASCADE,
+    FOREIGN KEY (PID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
 );
