@@ -1,13 +1,15 @@
--- QUERY 3: Find the monthly average unrealized gain/loss of portfolios for each month in 2024
 SELECT 
     strftime('%Y-%m', DateOfUnrealizedGainLoss) AS Month,
     COUNT(DISTINCT PID) AS NumberOfPortfolios,
     ROUND(AVG(Amount), 2) AS AvgUnrealizedGainLoss,
+    ROUND(MIN(Amount), 2) AS MinUnrealizedGainLoss,
+    ROUND(MAX(Amount), 2) AS MaxUnrealizedGainLoss,
+    ROUND(SUM(Amount), 2) AS TotalUnrealizedGainLoss
 FROM 
-	UnrealizedGainLoss
+    UnrealizedGainLoss
 WHERE 
-	strftime('%Y', DateOfUnrealizedGainLoss) = '2024'
+    strftime('%Y', DateOfUnrealizedGainLoss) = '2024'
 GROUP BY 
-	Portfolio_ID, Month, Year
+    strftime('%Y-%m', DateOfUnrealizedGainLoss)
 ORDER BY 
-	Portfolio_ID, Month;
+    Month;
