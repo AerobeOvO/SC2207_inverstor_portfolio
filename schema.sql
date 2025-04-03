@@ -52,8 +52,6 @@ CREATE TABLE IF NOT EXISTS FINANCIAL_GOAL (
 CREATE TABLE IF NOT EXISTS PORTFOLIO (
     PID TEXT,
     Investor_PhoneNumber TEXT,
-    InvestedValueDate DATE,
-    UnrealizedGainLossDate DATE,
     Fee REAL,
     MarketValue REAL,
     InceptionDate DATE,

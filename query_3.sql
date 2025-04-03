@@ -14,7 +14,7 @@ FROM
 JOIN 
     PORTFOLIO p ON m.Portfolio_ID = p.PID
 JOIN 
-    INVESTOR i ON p.Investor_ID = i.ID
+    INVESTOR i ON p.Investor_ID = i.Phone
 WHERE 
     m.Year = 2024
 ORDER BY 
