@@ -1,3 +1,4 @@
+-- QUERY 3: Find the monthly average unrealized gain/loss of portfolios for each month in 2024
 SELECT 
     strftime('%Y-%m', DateOfUnrealizedGainLoss) AS Month,
     COUNT(DISTINCT PID) AS NumberOfPortfolios,
