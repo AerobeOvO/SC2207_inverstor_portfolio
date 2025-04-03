@@ -12,7 +12,7 @@ JOIN
     INVESTOR i ON p.Investor_PhoneNumber = i.Phone
 WHERE 
     strftime('%Y', iv.DateOfInvestedValue) = '2024'
-    AND CAST(strftime('%d', iv.DateOfInvestedValue) AS INTEGER) BETWEEN 1 AND 31
+    AND CAST(strftime('%d', iv.DateOfInvestedValue) AS INTEGER) BETWEEN 1 AND 7
 GROUP BY 
     iv.PID
 HAVING 
