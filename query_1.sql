@@ -1,6 +1,6 @@
 SELECT i.PID, i.Name
-FROM Investor i
-JOIN Portfolio p ON i.InvestorID = p.InvestorID
+FROM INVESTOR i
+JOIN PORTFOLIO p ON i.InvestorID = p.InvestorID
 WHERE YEAR(p.StartDate) <= 2024
   AND (p.EndDate IS NULL OR YEAR(p.EndDate) >= 2024)  
 GROUP BY i.InvestorID, i.Name
