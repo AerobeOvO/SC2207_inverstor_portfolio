@@ -28,6 +28,9 @@ INSERT INTO INVESTOR (Phone, Name, Gender, DateOfBirth, AnnualIncome, Company) V
 ('+6588008901', 'Priya Govind', 'Female', '1996-04-22', 58000, 'Standard Chartered'),
 ('+6589009012', 'Mohammad Ali', 'Male', '1997-10-15', 52000, 'GovTech'),
 ('+6590000123', 'Amanda Ng', 'Female', '1995-03-08', 70000, 'Temasek Holdings'),
+('+6581555123', 'Sim Yi Xuan', 'Female', '1992-06-15', 72000, 'Google Singapore'),
+('+6581666234', 'Daniel Chua', 'Male', '1990-03-11', 85000, 'NUS'),
+
 
 -- Established Investors (30-40)
 ('+6591001234', 'Lee Chong Wei', 'Male', '1988-06-18', 120000, 'OCBC Bank'),
@@ -473,7 +476,7 @@ INSERT INTO UnrealizedGainLoss (PID, DateOfUnrealizedGainLoss, Amount) VALUES
 ('P2005', '2024-09-30', 26000),
 ('P2005', '2024-10-31', 30000),
 ('P2005', '2024-11-30', 33000),
-('P2005', '2024-12-31', 35000);
+('P2005', '2024-12-31', 35000),
 
 -- Established Investor P2007 (Global diversified)
 ('P2007', '2024-01-31', 2000),
