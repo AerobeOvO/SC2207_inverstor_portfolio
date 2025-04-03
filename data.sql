@@ -47,23 +47,23 @@ INSERT INTO INVESTOR (Phone, Name, Gender, DateOfBirth, AnnualIncome, Company) V
 -- Insert Financial Goals
 INSERT INTO FINANCIAL_GOAL (Investor_Phone, Goal, Amount, Timeline, YearCreated) VALUES
 -- Young investors
-('+6581001234', 'BTO Flat Downpayment', 100000, 5, 2023),
+('+6581001234', 'to fund children’s education', 100000, 5, 2023),
 ('+6582002345', 'Further Education', 50000, 3, 2022),
 ('+6583003456', 'Start Business', 200000, 8, 2024),
 ('+6584004567', 'Investment Property', 500000, 12, 2025),
-('+6585005678', 'Wedding Fund', 40000, 2, 2023),
+('+6585005678', 'to fund children’s education', 40000, 2, 2023),
 ('+6586006789', 'Retirement', 1000000, 25, 2022),
 ('+6587007890', 'Travel Fund', 30000, 3, 2022),
-('+6588008901', 'Parents Retirement', 200000, 10, 2025),
+('+6588008901', 'to fund children’s education', 200000, 10, 2025),
 ('+6589009012', 'Car Purchase', 80000, 4, 2024),
 ('+6590000123', 'Wealth Accumulation', 500000, 15, 2025),
 
 -- Established investors
-('+6591001234', 'Children Education', 250000, 8, 2023),
+('+6591001234', 'to fund children’s education', 250000, 8, 2023),
 ('+6592002345', 'Retirement', 1500000, 15, 2025),
 ('+6593003456', 'Second Property', 800000, 10, 2024),
 ('+6594004567', 'Second Property', 350000, 7, 2024),
-('+6595005678', 'Early Retirement', 2000000, 12, 2025),
+('+6595005678', 'to fund children’s education', 2000000, 12, 2025),
 ('+6596006789', 'Wealth Preservation', 1000000, 20, 2025),
 ('+6597007890', 'Philanthropy Fund', 500000, 15, 2024),
 ('+6598008901', 'Early Retirement', 300000, 10, 2025),
