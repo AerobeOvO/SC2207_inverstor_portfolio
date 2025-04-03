@@ -32,14 +32,14 @@ INSERT INTO INVESTOR (Phone, Name, Gender, DateOfBirth, AnnualIncome, Company) V
 -- Established Investors (30-40)
 ('+6591001234', 'Lee Chong Wei', 'Male', '1988-06-18', 120000, 'OCBC Bank'),
 ('+6592002345', 'Sarah Lim', 'Female', '1987-09-27', 110000, 'Singtel'),
-('+6593003456', 'David Wong', 'Male', '1985-11-30', 150000, 'Micron Technology'),
+('+6593003456', 'David Wong', 'Male', '1985-11-30', 150000, 'ST Engineering'),
 ('+6594004567', 'Fatimah Binte Yusof', 'Female', '1989-04-05', 95000, 'ST Engineering'),
 ('+6595005678', 'Richard Goh', 'Male', '1983-12-12', 180000, 'Sea Limited'),
 ('+6596006789', 'Jennifer Ho', 'Female', '1986-07-22', 130000, 'Razer'),
 ('+6597007890', 'Arjun Patel', 'Male', '1984-02-14', 160000, 'BioNTech Singapore'),
-('+6598008901', 'Grace Chan', 'Female', '1982-10-08', 140000, 'SAP Asia'),
+('+6598008901', 'Grace Chan', 'Female', '1982-10-08', 140000, 'Sea Limited'),
 ('+6599009012', 'Benjamin Koh', 'Male', '1987-05-19', 170000, 'Shell Singapore'),
-('+6510000123', 'Nur Syafiqah', 'Female', '1985-08-31', 125000, 'Procter & Gamble');
+('+6510000123', 'Nur Syafiqah', 'Female', '1985-08-31', 125000, 'ST Engineering');
 
 -- Insert Financial Goals
 INSERT INTO FINANCIAL_GOAL (Investor_Phone, Goal, Amount, Timeline, YearCreated) VALUES
@@ -59,13 +59,14 @@ INSERT INTO FINANCIAL_GOAL (Investor_Phone, Goal, Amount, Timeline, YearCreated)
 ('+6591001234', 'Children Education', 250000, 8, 2023),
 ('+6592002345', 'Retirement', 1500000, 15, 2025),
 ('+6593003456', 'Second Property', 800000, 10, 2024),
-('+6594004567', 'Family Vacation Home', 350000, 7, 2024),
+('+6594004567', 'Second Property', 350000, 7, 2024),
 ('+6595005678', 'Early Retirement', 2000000, 12, 2025),
 ('+6596006789', 'Wealth Preservation', 1000000, 20, 2025),
 ('+6597007890', 'Philanthropy Fund', 500000, 15, 2024),
-('+6598008901', 'Healthcare Fund', 300000, 10, 2025),
+('+6598008901', 'Early Retirement', 300000, 10, 2025),
 ('+6599009012', 'Legacy Planning', 1500000, 25, 2024),
-('+6510000123', 'Business Expansion', 500000, 8, 2025);
+('+6510000123', 'Second Property', 500000, 8, 2025);
+
 
 
 
