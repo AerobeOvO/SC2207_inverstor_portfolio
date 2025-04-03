@@ -28,6 +28,9 @@ INSERT INTO INVESTOR (Phone, Name, Gender, DateOfBirth, AnnualIncome, Company) V
 ('+6588008901', 'Priya Govind', 'Female', '1996-04-22', 58000, 'Standard Chartered'),
 ('+6589009012', 'Mohammad Ali', 'Male', '1997-10-15', 52000, 'GovTech'),
 ('+6590000123', 'Amanda Ng', 'Female', '1995-03-08', 70000, 'Temasek Holdings'),
+('+6581555123', 'Sim Yi Xuan', 'Female', '1992-06-15', 72000, 'Google Singapore', 90000, 10),
+('+6581666234', 'Daniel Chua', 'Male', '1990-03-11', 85000, 'NUS', 110000, 12),
+
 
 -- Established Investors (30-40)
 ('+6591001234', 'Lee Chong Wei', 'Male', '1988-06-18', 120000, 'OCBC Bank'),
