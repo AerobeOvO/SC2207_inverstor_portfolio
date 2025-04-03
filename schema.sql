@@ -63,21 +63,19 @@ CREATE TABLE IF NOT EXISTS PORTFOLIO (
 -- InvestedValue table
 CREATE TABLE IF NOT EXISTS InvestedValue (
     PID TEXT,
-    Investor_PhoneNumber TEXT,
     DateOfInvestedValue DATE,
     Amount REAL,
-    PRIMARY KEY (PID, Investor_PhoneNumber, DateOfInvestedValue),
-    FOREIGN KEY (PID, Investor_PhoneNumber) REFERENCES PORTFOLIO(PID, Investor_PhoneNumber) ON DELETE CASCADE
+    PRIMARY KEY (PID, DateOfInvestedValue),
+    FOREIGN KEY (PID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
 );
 
 -- UnrealizedGainLoss table
 CREATE TABLE IF NOT EXISTS UnrealizedGainLoss (
     PID TEXT,
-    Investor_PhoneNumber TEXT,
     DateOfUnrealizedGainLoss DATE,
     Amount REAL,
-    PRIMARY KEY (PID, Investor_PhoneNumber, DateOfUnrealizedGainLoss),
-    FOREIGN KEY (PID, Investor_PhoneNumber) REFERENCES PORTFOLIO(PID, Investor_PhoneNumber) ON DELETE CASCADE
+    PRIMARY KEY (PID, DateOfUnrealizedGainLoss),
+    FOREIGN KEY (PID) REFERENCES PORTFOLIO(PID) ON DELETE CASCADE
 );
 
 -- ASSETS table
