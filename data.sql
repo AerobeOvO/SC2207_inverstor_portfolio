@@ -391,7 +391,7 @@ INSERT INTO UnrealizedGainLoss (PID, DateOfUnrealizedGainLoss, Amount) VALUES
 ('P2005', '2024-09-30', 26000),
 ('P2005', '2024-10-31', 30000),
 ('P2005', '2024-11-30', 33000),
-('P2005', '2024-12-31', 35000);
+('P2005', '2024-12-31', 35000),
 
 -- Established Investor P2007 (Global diversified)
 ('P2007', '2024-01-31', 2000),
