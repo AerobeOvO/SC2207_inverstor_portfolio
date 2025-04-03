@@ -70,9 +70,6 @@ INSERT INTO FINANCIAL_GOAL (Investor_Phone, Goal, Amount, Timeline, YearCreated)
 ('+6599009012', 'Legacy Planning', 1500000, 25, 2024),
 ('+6510000123', 'Second Property', 500000, 8, 2025);
 
-
-
-
 -- Insert Portfolios with Singaporean characteristics
 INSERT INTO PORTFOLIO (PID, Investor_PhoneNumber, Fee, MarketValue, InceptionDate, AnnualizedReturn) VALUES
 -- Young investors (higher risk/reward)
@@ -523,3 +520,31 @@ INSERT INTO MONTHLY_PORTFOLIO_PERFORMANCE (Portfolio_ID, Month, Year, Avg_Unreal
 ('P2003', 1, 2024, 1500),
 ('P2003', 6, 2024, 11000),
 ('P2003', 12, 2024, 20000);
+
+-- Insert Risk Tolerance (manually assigned levels for demo)
+INSERT INTO RISK_TOLERANCE (Investor_PhoneNumber, RiskLevel, Answers) VALUES
+-- 20s
+('+6581001234', 'Aggressive', '5,4,5,4,5'),
+('+6582002345', 'Moderate', '3,3,4,3,4'),
+('+6583003456', 'Aggressive', '5,5,4,5,4'),
+('+6584004567', 'Aggressive', '4,5,5,4,5'),
+('+6585005678', 'Moderate', '3,4,3,4,3'),
+('+6586006789', 'Conservative', '2,3,2,3,2'),
+('+6587007890', 'Aggressive', '5,4,5,4,5'),
+('+6588008901', 'Moderate', '3,4,4,3,4'),
+('+6589009012', 'Aggressive', '4,5,4,5,4'),
+('+6590000123', 'Moderate', '3,4,3,4,3'),
+('+6581555123', 'Moderate', '3,4,3,4,3'),
+('+6581666234', 'Aggressive', '5,5,4,5,5'),
+
+-- 30s and above
+('+6591001234', 'Moderate', '3,3,3,4,3'),
+('+6592002345', 'Conservative', '2,2,3,2,3'),
+('+6593003456', 'Moderate', '3,4,3,4,3'),
+('+6594004567', 'Conservative', '2,3,2,3,2'),
+('+6595005678', 'Aggressive', '4,5,4,5,4'),
+('+6596006789', 'Moderate', '3,3,4,3,4'),
+('+6597007890', 'Moderate', '3,4,3,4,3'),
+('+6598008901', 'Conservative', '2,3,2,3,2'),
+('+6599009012', 'Moderate', '3,4,3,4,3'),
+('+6510000123', 'Conservative', '2,2,3,2,3');
