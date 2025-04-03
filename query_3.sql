@@ -1,21 +1,14 @@
 -- QUERY 3: Find the monthly average unrealized gain/loss of portfolios for each month in 2024
 SELECT 
-    p.PID,
-    i.Name AS Investor_Name,
-    m.Month,
-    m.Year,
-    m.Avg_Unrealized_Gain_Loss,
-    CASE 
-        WHEN m.Avg_Unrealized_Gain_Loss >= 0 THEN 'Profit'
-        ELSE 'Loss'
-    END AS Profit_Loss_Status
+    PID AS Portfolio_ID,
+    strftime('%m', DateOfUnrealizedGainLoss) AS Month,
+    strftime('%Y', DateOfUnrealizedGainLoss) AS Year,
+    AVG(Amount) AS Avg_Unrealized_Gain_Loss
 FROM 
-    MONTHLY_PORTFOLIO_PERFORMANCE m
-JOIN 
-    PORTFOLIO p ON m.Portfolio_ID = p.PID
-JOIN 
-    INVESTOR i ON p.Investor_ID = i.Phone
+	UnrealizedGainLoss
 WHERE 
-    m.Year = 2024
+	strftime('%Y', DateOfUnrealizedGainLoss) = '2024'
+GROUP BY 
+	Portfolio_ID, Month, Year
 ORDER BY 
-    p.PID, m.Month;
+	Portfolio_ID, Month;
